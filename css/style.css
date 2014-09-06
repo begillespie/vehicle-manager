@@ -1,0 +1,18 @@
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tab-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.vehicle-detail h1{
+    margin-top: 0px;
+}
+
+#main {
+    padding-top: 70px;
+}
+

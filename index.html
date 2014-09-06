@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Manage Vehicles</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="header" class="navbar navbar-default navbar-fixed-top"></div>
+
+        <div id="main" class="container">
+            <div class="row">
+                <div class="sidebar col-md-2" id="main-list"></div>
+                <div class="main col-md-10 well well-lg" id="vehicle-detail">Intro Text</div>
+            </div>
+        </div>
+
+        <script id="header-tpl" type="text/template">
+                <a href="/mileage" class="navbar-brand">Vehicle Management</a>
+                <button type="button" class="new btn btn-default navbar-btn navbar-right">Add Vehicle</button>
+        </script>
+
+        <script id="vehicle-tpl" type="text/template">
+            <a href='#vehicles/<%= id %>'><%= year %> <%= color %> <%= make %> <%= model %></a>
+        </script>
+
+        <script id="vehicle-detail-tpl" type="text/template">
+            <h1><%= make %> <%= model %></h1>
+            <button type="button" class="close">Close</button>
+            
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#details-tab" data-toggle="tab" class="detail-tab">Details</a></li>
+                <li><a href="#fuel-tab" data-toggle="tab" class="fuel-tab">Fuel</a></li>
+                <li><a href="#maintenance-tab" data-toggle="tab" class="maintenance-tab">Maintenance</a></li>
+            </ul>
+            <div id="tab-contents" class="tab-content">
+                <div class="tab-pane active" id="details-tab">
+                    <h3>Details</h3>
+
+                    <div class="vehicle-detail form-group">
+                        <label class="control-label">Year</label><input type="text" class="form-control" id="year" name="year" value="<%= year %>"/>
+                        <label class="control-label">Make</label><input type="text" class="form-control" id="make" name="make" value="<%= make %>"/>
+                        <label class="control-label">Model</label><input type="text" class="form-control" id="model" name="model" value="<%= model %>"/>
+                        <label class="control-label">Color</label><input type="text" class="form-control" id="color" name="color" value="<%= color %>"/>
+                        <label class="control-label">State</label><input type="text" class="form-control" id="state" name="state" value="<%= state %>"/>
+                        <label class="control-label">Plate</label><input type="text" class="form-control" id="plate" name="plate" value="<%= plate %>"/>
+                        <label class="control-label">Vin</label><input type="text" class="form-control" id="vin" name="vin" value="<%= vin %>"/>
+                        <button class="save">Save</button>
+                        <button class="delete">Delete</button>
+                    </div>
+                    <div id="detail-stats"></div>
+                </div>
+                <div class="tab-pane" id="fuel-tab">
+                    <h3>Fuel</h3>
+                    <div id="fuel"></div>
+                </div>
+                <div class="tab-pane" id='maintenance-tab'>
+                    <h3>Maintenance</h3>
+                    <div id="maintenance"></div>
+                </div>
+            </div>
+        </script>
+
+            <script id="detail-stats-tpl" type="text/template">
+                    <div id="detail-mileage">
+                        <h4>Mileage</h4>
+                        <p><%= mileage %></p>
+                    </div>
+                    <div id="detail-fuelcost">
+                        <h4>Total Fuel Cost</h4>
+                        <p><%= fuelcost %></p>
+                    </div>
+                    <div id="detail-maintcost">
+                        <h4>Total Maintenance Cost</h4>
+                        <p><%= maintcost %></p>
+                    </div>
+                    <div id="detail-totalcost">
+                        <h4>Total Operation Cost</h4>
+                        <p><%= totalcost %></p>
+                    </div>
+                    <div id="mileage-chart">Mileage Chart</div>
+            </script>
+
+        <script id="fuel-tpl" type="text/template">
+            <button class="btn btn-primary addfuel">Add Fuel</button>
+            <br>
+            <div id="fuel-list"></div>
+        </script>
+            
+        <script id="fuel-list-tpl" type="text/template">
+            <form class="form-inline" role="form">
+                <div class="form-group col-sm-3">
+                    <div class="input-group datetimepicker">
+                        <input type="text" class="form-control" data-date-format="YYYY-MM-DD" placeholder="Date" id="date" name="date" value="<%= date %>"/>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Miles" id="mileage" name="mileage" value="<%= mileage %>"/>
+                        <label class="sr-only" for="mileage">Mileage</label>
+                        <span class="input-group-addon">Mi</span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Gallons" id="gallons" name="gallons" value="<%= gallons %>"/>
+                        <label class="sr-only" for="gallons">Gallons</label>
+                        <span class="input-group-addon">Gal</span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-usd"></span>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Cost" id="cost" name="cost" value="<%= cost %>"/>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary savefuel">Save</button>
+                    <button class="btn btn-primary deletefuel">Delete</button>
+                </div>
+            </form>
+        </script>
+
+        <script id="maintenance-tpl" type="text/template">
+            <button class="btn btn-primary addmaintenance">Add Maintenance</button>
+            <br>
+            <div id="maintenance-list">No Records Found</div>
+        </script>
+            
+        <script id="maintenance-list-tpl" type="text/template">
+            <label>Date</label><input type="text" id="date" name="date" value="<%= date %>"/>
+            <input type="radio" id="scheduled" name="scheduled" value="scheduled"/><label>Scheduled</label>
+            <input type="radio" id="scheduled" name="scheduled" value="<unscheduled"/><label>Uncheduled</label>
+            <label>Vendor</label><input type="text" id="vendor" name="vendor" value="<%= vendor %>"/>
+            <label>Cost</label><input type="text" id="cost" name="cost" value="<%= cost %>"/>
+            <label>Notes</label><input type="textarea" id="notes" name="notes" value="<%= notes %>"/>
+
+            <button class="savemaintenance">Save</button>
+            <button class="deletemaintenance">Delete</button>
+            
+        </script>
+            
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/lib/bootstrap.min.js"></script>
+
+        <script src="js/lib/underscore-min.js"></script>
+        <script src="js/lib/backbone-min.js"></script>
+        <script src="js/lib/moment.js"></script>
+        <script src="js/lib/bootstrap-datetimepicker.js"></script>
+
+        <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
+
+        <script src="js/views/headerView.js"></script>
+        <script src="js/chart.js"></script>
+
+        <script src="js/models/fuel.js"></script>
+        <script src="js/views/fuelView.js"></script>
+        <script src="js/views/fuelListView.js"></script>
+        
+        <script src="js/models/maintenance.js"></script>
+        <script src="js/views/maintenanceView.js"></script>
+        <script src="js/views/maintenanceListView.js"></script>
+        
+        <script src="js/models/vehicle.js"></script>
+        <script src="js/views/vehicleListView.js"></script>
+        <script src="js/views/vehicleView.js"></script>
+        
+        <script src="js/config.js"></script>
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
