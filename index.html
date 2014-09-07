@@ -10,6 +10,8 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+
+        <script data-main="js/main.js" src="js/lib/require.js"></script>
     </head>
 
     <body>
@@ -23,7 +25,7 @@
         </div>
 
         <script id="header-tpl" type="text/template">
-                <a href="/mileage" class="navbar-brand">Vehicle Management</a>
+                <a href="index.html" class="navbar-brand">Vehicle Management</a>
                 <button type="button" class="new btn btn-default navbar-btn navbar-right">Add Vehicle</button>
         </script>
 
@@ -68,24 +70,35 @@
             </div>
         </script>
 
-            <script id="detail-stats-tpl" type="text/template">
-                    <div id="detail-mileage">
+        <script id="detail-stats-tpl" type="text/template">
+                <div class="row">
+                    <div id="detail-mileage" class="well col-sm-3">
                         <h4>Mileage</h4>
                         <p><%= mileage %></p>
                     </div>
-                    <div id="detail-fuelcost">
+                    <div id="detail-fuelcost" class="well col-sm-3">
                         <h4>Total Fuel Cost</h4>
                         <p><%= fuelcost %></p>
                     </div>
-                    <div id="detail-maintcost">
+                    <div id="detail-maintcost" class="well col-sm-3">
                         <h4>Total Maintenance Cost</h4>
                         <p><%= maintcost %></p>
                     </div>
-                    <div id="detail-totalcost">
+                    <div id="detail-totalcost" class="well col-sm-3">
                         <h4>Total Operation Cost</h4>
                         <p><%= totalcost %></p>
                     </div>
-                    <div id="mileage-chart">Mileage Chart</div>
+                </div>
+                <div class="row">
+                    <div id="detail-mileage-chart" class="col-md-6">
+                        <h4>Fuel Economy</h4>
+                        <canvas id="mileage-chart"></canvas>
+                    </div>
+                    <div id="detail-maintenance-chart" class="col-md-6">
+                        <h4>Maintenance Costs</h4>
+                        <canvas id="maintenance-chart"></canvas>
+                    </div>
+                </div>
             </script>
 
         <script id="fuel-tpl" type="text/template">
@@ -151,36 +164,6 @@
             <button class="deletemaintenance">Delete</button>
             
         </script>
-            
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/lib/bootstrap.min.js"></script>
-
-        <script src="js/lib/underscore-min.js"></script>
-        <script src="js/lib/backbone-min.js"></script>
-        <script src="js/lib/moment.js"></script>
-        <script src="js/lib/bootstrap-datetimepicker.js"></script>
-
-        <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
-
-        <script src="js/views/headerView.js"></script>
-        <script src="js/chart.js"></script>
-
-        <script src="js/models/fuel.js"></script>
-        <script src="js/views/fuelView.js"></script>
-        <script src="js/views/fuelListView.js"></script>
-        
-        <script src="js/models/maintenance.js"></script>
-        <script src="js/views/maintenanceView.js"></script>
-        <script src="js/views/maintenanceListView.js"></script>
-        
-        <script src="js/models/vehicle.js"></script>
-        <script src="js/views/vehicleListView.js"></script>
-        <script src="js/views/vehicleView.js"></script>
-        
-        <script src="js/config.js"></script>
-        <script src="js/app.js"></script>
-
+        <script src="js/lib/moment.js"></script> <!-- we're going ahead and loading momentjs here so all templates can use it. -->
     </body>
 </html>

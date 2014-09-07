@@ -1,14 +1,17 @@
 requirejs.config({
+//    baseUrl: '/js',
     paths: {
-        jquery: 'lib/jquery-1.11.1.min',
+        jquery    : 'lib/jquery-1.11.1.min',
         underscore: 'lib/underscore-min',
-        bootstrap: 'bootstrap.min',
-        backbone: 'backbone-min'
+        bootstrap : 'lib/bootstrap.min',
+        backbone  : 'lib/backbone-min',
+        chart     : 'lib/Chart.min'
     }
 });
 
 require([
-
-], function(){
-
+    'app',
+], function(App){
+    console.log('main.js');
+    App.initialize();
 });
