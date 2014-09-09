@@ -49,9 +49,9 @@ define([
         },
 
         newVehicle: function(){
-            console.log('app.newVehicle');
-            if(app.vehicleDetailView) app.vehicleDetailView.close();
-            this.vehicleDetailView = new vehicleDetailView({model:new Vehicle()});
+            console.log('newVehicle');
+            if(this.vehicleDetailView) this.vehicleDetailView.close();
+            this.vehicleDetailView = new vehicleDetailView({model:new Vehicle.Model()});
             $('#vehicle-detail').html(this.vehicleDetailView.render().el);
         },
 
@@ -64,19 +64,8 @@ define([
                     $('#maintenance').html(maintenanceListView.render().el);
                 }
             })
-        },
-
-        fuel: function(vehicleid){
-            this.fuelList = new FuelCollection([], {'id':vehicleid});
-            this.fuelList.meta('vehicleID', vehicleid);
-            var self = this;
-            this.fuelList.fetch({
-                success: function(){
-                    this.fuelListView = new FuelListView({model: self.fuelList})
-                    $('#fuel').html(fuelListView.render().el);
-                }
-            })
         }
+
     });
 
     var initialize = function(){

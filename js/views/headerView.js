@@ -2,11 +2,12 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app'
-], function($, _, Backbone, app){
+    'router',
+    'text!tpl/t_header.html'
+], function($, _, Backbone, AppRouter, template){
     var HeaderView = Backbone.View.extend({
     //Generates the page header, common across the app
-        template: _.template($('#header-tpl').html()),
+        template: _.template(template),
         className: "container-fluid",
         
         initialize: function(){
@@ -23,7 +24,7 @@ define([
         },
         
         newVeh: function(){
-            app.navigate("vehicles/new", true);
+            Backbone.history.navigate("vehicles/new", true);
             return false;
         }
     });

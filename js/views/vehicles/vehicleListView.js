@@ -2,10 +2,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'app',
-    'models/vehicle'
-//    'views/vehicles/vehicleView'
-], function($, _, Backbone, vehicle){
+    'models/vehicle',
+    'text!tpl/t_vehiclelistitem.html'
+], function($, _, Backbone, vehicle, template){
     var vehicleListView = Backbone.View.extend({
     //Generates the list of vehicles
         tagName: 'ul',
@@ -37,7 +36,7 @@ define([
         tagName: 'li',
         className: 'list-group-item',
 
-        template: _.template($('#vehicle-tpl').html()),
+        template: _.template(template),
 
         initialize: function(){
             this.model.bind('change', this.render, this);

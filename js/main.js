@@ -5,6 +5,7 @@ requirejs.config({
         underscore: 'lib/underscore-min',
         bootstrap : 'lib/bootstrap.min',
         backbone  : 'lib/backbone-min',
+        text      : 'lib/text',
         chart     : 'lib/Chart.min'
     }
 });

@@ -2,13 +2,21 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'makechart'
-], function($, _, Backbone, insertCharts){
+    'bootstrap',
+    'makechart',
+    'router',
+    'views/fuel/fuellistview',
+    'models/fuel',
+    'views/maintenance/maintlistview',
+    'models/maintenance',
+    'text!tpl/t_vehicledetail.html',
+    'text!tpl/t_detailstats.html'
+], function($, _, Backbone, Bootstrap, insertCharts, AppRouter, FuelListView, Fuel, MaintenanceListView, Maintenance, template, detailTemplate){
     var vehicleDetailView = Backbone.View.extend({
     // Detail view for vehicles. This is the main view for the app, and is where
     // most of the data for a vehicle is viewed/added.
         className: "vehicle-detail form-group",
-        template: _.template($('#vehicle-detail-tpl').html()),
+        template: _.template(template),
 
         initialize: function(){
             this.model.bind('change', this.render, this);
@@ -67,11 +75,20 @@ define([
         },
         
         fuel: function(){
-            app.fuel(this.model.get('id'));
+            var vehicleid = this.model.get('id');
+            this.fuelList = new Fuel.Collection([], {'id':vehicleid});
+            this.fuelList.meta('vehicleID', vehicleid);
+            var self = this;
+            this.fuelList.fetch({
+                success: function(){
+                    this.fuelListView = new FuelListView({model: self.fuelList});
+                    $('#fuel').html(fuelListView.render().el);
+                }
+            })
         },
-            
+
         maintenance: function(){
-            app.maintenance(this.model.get('id'));
+            var vehicleid = this.model.get('id');
         },
 
         // utility function that grabs some individual data points from the server, the results
@@ -112,7 +129,7 @@ define([
                 };
                 detailsData.totalcost = detailsData.fuelcost + detailsData.maintcost;
 
-                var template = _.template($('#detail-stats-tpl').html());
+                var template = _.template(detailTemplate);
                 $('#detail-stats').html(template(detailsData));
 
                 // had to chain this after getDetails because the spot for this chart to go is in the details template
@@ -170,9 +187,7 @@ define([
         close: function(){
             $(this.el).unbind();
             $(this.el).remove();
-            app.navigate("", true); //I don't like this because it makes 
-            //an unnecessary database call to rerender the list, but I 
-            //can't make it work any other way.
+            Backbone.history.navigate("");
         }
     });
 
