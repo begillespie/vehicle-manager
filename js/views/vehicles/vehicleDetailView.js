@@ -89,6 +89,15 @@ define([
 
         maintenance: function(){
             var vehicleid = this.model.get('id');
+            this.maintList = new Maintenance.Collection([], {'id':vehicleid});
+            this.maintList.meta('vehicleID', vehicleid);
+            var self = this;
+            this.maintList.fetch({
+                success: function(){
+                    this.maintListView = new MaintenanceListView({model: self.maintList});
+                    $('#maintenance').html(maintListView.render().el);
+                }
+            })
         },
 
         // utility function that grabs some individual data points from the server, the results
@@ -139,8 +148,11 @@ define([
 
             // get fuel economy and format the data for Chart.js
         getFuelEconomy: function(requestID){
-            $.get('http://192.168.1.104/couchdb/mileage/_design/stats/_view/fueleconomy?key="'+requestID+'"&descending=true&limit=21',
-                function(rdata){
+            $.get('/couchdb/mileage/_design/stats/_view/fueleconomy?startkey=["'+requestID+'",{}]&endkey=["'+requestID+'"]&descending=true&limit=21',
+            // the database view returns a complex key, [requestID, date]. The form of this request gets a list filtered by 
+            // requestID and sorted descending by date.
+                    function(rdata){
+                    console.log(rdata);
                     var parsed = JSON.parse(rdata).rows;
                     var fuelData = [];
                     var chartData = {

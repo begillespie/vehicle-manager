@@ -1,35 +1,51 @@
-window.MaintenanceView = Backbone.View.extend({
-    tagName : 'li',
-    className : 'maintenance',
-    template : _.template($('#maintenance-list-tpl').html()),
-    
-    initialize: function(){
-        this.model.bind('destroy', this.close, this);
-        console.log(this.model);
-    },
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'lib/moment',
+    'lib/bootstrap-datetimepicker',
+    'models/maintenance',
+    'text!tpl/t_maintitem.html'
+], function($, _, Backbone, moment, datetimepicker, Maintenance, template){
+    var MaintenanceView = Backbone.View.extend({
+        tagName : 'li',
+        className : 'maintenance',
+        template : _.template(template),
+        
+        initialize: function(){
+            this.createDatePicker();
+            this.model.bind('destroy', this.close, this);
+        },
 
-    render: function(){
-        console.log('itemview render');
-        $(this.el).html(this.template(this.model.toJSON()));
-        return this;
-    },
+        render: function(){
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        },
 
-    events: {
-        'click .savemaintenance': 'savemaintenance',
-        'click .deletemaintenance': 'deletemaintenance'
-    },
+        events: {
+            'click .savemaintenance': 'savemaintenance',
+            'click .deletemaintenance': 'deletemaintenance'
+        },
 
-    savemaintenance: function(){
-        alert('savemaintenance');
-    },
+        savemaintenance: function(){
+            alert('savemaintenance');
+        },
 
-    deletemaintenance: function(){
-        alert('deletemaintenance');
-    },
+        deletemaintenance: function(){
+            alert('deletemaintenance');
+        },
 
-    close: function(){
-        console.log('itemview close');
-        $(this.el).unbind();
-        $(this.el).remove();
-    }
+        createDatePicker: function(){
+            this.$('.datetimepicker').datetimepicker({
+                picktime: false
+            });
+        },
+
+        close: function(){
+            $(this.el).unbind();
+            $(this.el).remove();
+        }
+    });
+
+    return MaintenanceView;
 });

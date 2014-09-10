@@ -2,15 +2,14 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'models/fuel',
     'lib/moment',
     'lib/bootstrap-datetimepicker',
+    'models/fuel',
     'text!tpl/t_fuelitem.html'
-], function($, _, Backbone, Fuel, moment, datetimepicker, template){
+], function($, _, Backbone, moment, datetimepicker, Fuel, template){
     var FuelView = Backbone.View.extend({
         tagName : 'li',
         className : 'fuel',
-
         template : _.template(template),
         
         initialize: function(){

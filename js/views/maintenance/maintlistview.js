@@ -1,45 +1,63 @@
-window.MaintenanceListView = Backbone.View.extend({
-//Generates maintenance history
-    tagName: 'ul',
-    template: _.template($('#maintenance-tpl').html()),
-    
-    initialize: function(){
-        // grab the vehicle ID from the custom meta attribute in the collection
-        this.vehicleID = this.model._meta["vehicleid"];
+define([
+    'jquery',
+    'underscore',
+    'backbone',
+    'views/maintenance/maintview',
+    'models/maintenance',
+    'text!tpl/t_maintlist.html'
+], function($, _, Backbone, MaintView, Maintenance, template){
+    var MaintenanceListView = Backbone.View.extend({
+    //Generates maintenance history
+        tagName: 'ul',
+        template: _.template(template),
+        
+        initialize: function(){
+            // grab the vehicle ID from the custom meta attribute in the collection
+            this.vehicleID = this.model._meta["vehicleID"];
+            this.model.bind("reset", this.render, this);
+            var self = this;
+            this.model.bind("change", this.render, this);
+    /*        this.model.bind("add", function(maint){
+                $(self.el).prepend(new maintView({model: maint}).render().el);
+            }, this);
+            return this;
+    //*/
+        },
+        
+        render: function(){
+            $(this.el).html(this.template);
+            _.each(this.model.models, function(maint){
+                $(this.el).append(new MaintView({model: maint}).render().el);
+                this.createDatePicker();
+            }, this);
+            return this;
+        },
+        
+        events: {
+            'click .addmaint' : 'add'
+        },
 
-        this.model.bind("reset", this.render, this);
-        var self = this;
-        this.model.bind("add", function(maintenance){
-            $(self.el).append(new maintenanceView({model: maintenance}).render().el);
-        }, this);
-        return this;
-    },
-    
-    render: function(){
-        console.log('listview render');
-        $(this.el).html(this.template);
-        _.each(this.model.models, function(maintenance){
-            $(this.el).append(new MaintenanceView({model: maintenance}).render().el);
-        }, this);
-        return this;
-    },
-    
-    events: {
-        'click .closemaintenance' : 'close',
-        'click .addmaintenance' : 'add'
-    },
+        add : function(){
+            console.log('add maintenance record');
+            maintview = new MaintView({
+                model:new Maintenance.Model({vehicleid: this.vehicleID})
+            });
+            $('#maintenance-list').prepend(maintview.render().el);
+            this.createDatePicker();
+            return false;
+        },
+        
+        createDatePicker: function(){
+            this.$('.datetimepicker').datetimepicker({
+                picktime: false
+            });
+        },
+        
+        close: function(){
+            $(this.el).unbind();
+            $(this.el).remove();
+        }
+    });
 
-    add : function(){
-        maintenanceview = new MaintenanceView({model:new Maintenance()});
-        // connect the new maintenance record to the vehicle
-        maintenanceview.model.set('vehicleid', this.vehicleID);
-        $('#maintenance ul').append(maintenanceview.render().el);
-        return false;  
-    },
-    
-    close: function(){
-        console.log('listView close');
-        $(this.el).unbind();
-        $(this.el).remove();
-    }
+    return MaintenanceListView;
 });

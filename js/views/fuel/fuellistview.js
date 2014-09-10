@@ -16,7 +16,7 @@ define([
             this.vehicleID = this.model._meta["vehicleID"];
             this.model.bind("reset", this.render, this);
             var self = this;
-            this.model.bind("change", this.render, this);
+//            this.model.bind("change", this.render, this);
     /*        this.model.bind("add", function(fuel){
                 $(self.el).prepend(new fuelView({model: fuel}).render().el);
             }, this);
