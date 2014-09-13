@@ -10,17 +10,33 @@
     <div class="tab-pane active" id="details-tab">
         <h3>Details</h3>
 
-        <div class="vehicle-detail form-group">
-            <label class="control-label">Year</label><input type="text" class="form-control" id="year" name="year" value="<%= year %>"/>
-            <label class="control-label">Make</label><input type="text" class="form-control" id="make" name="make" value="<%= make %>"/>
-            <label class="control-label">Model</label><input type="text" class="form-control" id="model" name="model" value="<%= model %>"/>
-            <label class="control-label">Color</label><input type="text" class="form-control" id="color" name="color" value="<%= color %>"/>
-            <label class="control-label">State</label><input type="text" class="form-control" id="state" name="state" value="<%= state %>"/>
-            <label class="control-label">Plate</label><input type="text" class="form-control" id="plate" name="plate" value="<%= plate %>"/>
-            <label class="control-label">Vin</label><input type="text" class="form-control" id="vin" name="vin" value="<%= vin %>"/>
-            <button class="save">Save</button>
-            <button class="delete">Delete</button>
-        </div>
+        <form class="vehicle-detail form-inline" role="form">
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Year" id="year" name="year" value="<%= year %>"/>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Make" id="make" name="make" value="<%= make %>"/>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Model" id="model" name="model" value="<%= model %>"/>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Color" id="color" name="color" value="<%= color %>"/>
+            </div>
+        </form>
+        <form class="form-inline">
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="State" id="state" name="state" value="<%= state %>"/>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Plate" id="plate" name="plate" value="<%= plate %>"/>
+            </div>
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="VIN" id="vin" name="vin" value="<%= vin %>"/>
+            </div>
+            <button class="btn btn-primary save">Save</button>
+            <button class="btn btn-primary delete">Delete</button>
+        </form>
         <div id="detail-stats"></div>
     </div>
     <div class="tab-pane" id="fuel-tab">

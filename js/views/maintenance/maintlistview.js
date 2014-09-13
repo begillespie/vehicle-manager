@@ -16,7 +16,7 @@ define([
             this.vehicleID = this.model._meta["vehicleID"];
             this.model.bind("reset", this.render, this);
             var self = this;
-            this.model.bind("change", this.render, this);
+//            this.model.bind("change", this.render, this);
     /*        this.model.bind("add", function(maint){
                 $(self.el).prepend(new maintView({model: maint}).render().el);
             }, this);

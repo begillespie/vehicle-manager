@@ -19,7 +19,7 @@ define([
         template: _.template(template),
 
         initialize: function(){
-            this.model.bind('change', this.render, this);
+//            this.model.bind('change', this.render, this);
             var requestID = this.model.get('id');
             this.getDetails(requestID);
         },
@@ -105,6 +105,11 @@ define([
         getDetails: function(requestID){
             var self = this;
 
+            $.get('/couchdb/mileage/_design/stats/_view/fuelstats?key="'+requestID+'"',
+                    function(data){
+                        var parsedData = JSON.parse(data).rows[0].value;
+
+/*
             // jQuery deferreds
             $.when(this.getDBView('mileage', requestID),
                 this.getDBView('fuelcost', requestID),
@@ -129,13 +134,14 @@ define([
                         });
                     }
                 };
-
+*/
                 var detailsData = {
-                    mileage : parsedData[0].max,
-                    fuelcost: parsedData[1].sum,
-                    maintcost: parsedData[2].sum,
+                    mileage : parsedData.max_mileage,
+                    fuelcost: parsedData.total_fuel_cost,
+                    maintcost: parsedData.total_sch_cost+parsedData.total_unsch_cost,
                     totalcost: 0
                 };
+
                 detailsData.totalcost = detailsData.fuelcost + detailsData.maintcost;
 
                 var template = _.template(detailTemplate);

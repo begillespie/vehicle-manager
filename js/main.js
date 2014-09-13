@@ -6,7 +6,8 @@ requirejs.config({
         bootstrap : 'lib/bootstrap.min',
         backbone  : 'lib/backbone-min',
         text      : 'lib/text',
-        chart     : 'lib/Chart.min'
+        chart     : 'lib/Chart.min',
+        moment    : 'lib/moment'
     }
 });
 

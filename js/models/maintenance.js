@@ -13,6 +13,7 @@ define([
             "scheduled" : "",
             "vendor"    : "",
             "cost"      : "",
+            "mileage"   : "",
             "notes"     : "",
             "vehicleid" : "",
             "type"      : "maintenance"

@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'lib/moment',
+    'moment',
     'lib/bootstrap-datetimepicker',
     'models/maintenance',
     'text!tpl/t_maintitem.html'
@@ -28,11 +28,29 @@ define([
         },
 
         savemaintenance: function(){
-            alert('savemaintenance');
+            this.model.set({
+                _rev : this.model.get('_rev'),
+                date : $(this.el).find('#date').val(),
+                scheduled: $(this.el).find('input:radio[name=scheduled]:checked').val(),
+                vendor: $(this.el).find('#vendor').val(),
+                mileage: $(this.el).find('#mileage').val(),
+                cost : $(this.el).find('#cost').val(),
+                notes: $(this.el).find('#notes').val(),
+                type : 'maintenance'
+                }); 
+            this.model.save();
+            return false;
         },
 
         deletemaintenance: function(){
-            alert('deletemaintenance');
+            this.model.destroy({
+                url: this.model.url()+'?rev='+this.model.get('_rev'),
+                success: function(){
+                    alert('Maintenance record deleted');
+                    window.history.back();
+                }
+            });
+            return false;
         },
 
         createDatePicker: function(){

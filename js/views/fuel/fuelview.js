@@ -2,7 +2,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'lib/moment',
+    'moment',
     'lib/bootstrap-datetimepicker',
     'models/fuel',
     'text!tpl/t_fuelitem.html'
@@ -30,13 +30,14 @@ define([
         savefuel: function(){
             this.model.set({
                 _rev : this.model.get('_rev'),
-                date : $('#date').val(),
-                mileage: $('#mileage').val(),
-                gallons : $('#gallons').val(),
-                cost : $('#cost').val(),
+                date : $(this.el).find('#date').val(),
+                mileage: $(this.el).find('#mileage').val(),
+                gallons : $(this.el).find('#gallons').val(),
+                cost : $(this.el).find('#cost').val(),
                 type : 'fuel'
                 });
             this.model.save();
+            return false;
         },
 
         deletefuel: function(){

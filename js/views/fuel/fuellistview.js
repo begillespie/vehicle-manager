@@ -34,7 +34,6 @@ define([
         },
         
         events: {
-            'click .closefuel' : 'close',
             'click .addfuel' : 'add'
         },
 
