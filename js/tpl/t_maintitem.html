@@ -1,0 +1,44 @@
+<form role="form">
+    <div class="form-group col-sm-3">
+        <div class="input-group datetimepicker">
+            <input type="text" class="form-control" data-date-format="YYYY-MM-DD" placeholder="Date" id="date" name="date" value="<%= date %>"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group col-lg-9">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Vendor" id="vendor" name="vendor" value="<%= vendor %>"/>
+            <span class="input-group-addon">Vendor</span>
+        </div>
+    </div>
+    <div class="row">
+    <div class="form-group col-sm-3">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-usd"></span>
+            </span>
+            <input type="text" class="form-control" placeholder="Cost" id="cost" name="cost" value="<%= cost %>"/>
+        </div>
+    </div>
+    <div class="form-group col-sm-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Mileage" id="mileage" name="mileage" value="<%= mileage %>"/>
+            <span class="input-group-addon">Mi</span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="radio-inline">
+            <input type="radio" id="scheduled" name="scheduled" value="scheduled" checked/><label>Scheduled</label>
+        </div>
+        <div class="radio-inline">
+            <input type="radio" id="scheduled" name="scheduled" value="unscheduled"/><label>Unscheduled</label>
+        </div>
+    </div>
+    </div>
+    <input type="textarea" class="form-control" placeholder="Notes" id="notes" name="notes" value="<%= notes %>"/>
+
+    <button class="btn btn-primary savemaintenance">Save</button>
+    <button class="btn btn-primary deletemaintenance">Delete</button>
+</form>

@@ -1,0 +1,36 @@
+<form class="form-inline" role="form">
+    <div class="form-group col-sm-3">
+        <div class="input-group datetimepicker">
+            <input type="text" class="form-control" data-date-format="YYYY-MM-DD" placeholder="Date" id="date" name="date" value="<%= date %>"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    </div>
+    <div class="form-group col-sm-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Miles" id="mileage" name="mileage" value="<%= mileage %>"/>
+            <label class="sr-only" for="mileage">Mileage</label>
+            <span class="input-group-addon">Mi</span>
+        </div>
+    </div>
+    <div class="form-group col-sm-2">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Gallons" id="gallons" name="gallons" value="<%= gallons %>"/>
+            <label class="sr-only" for="gallons">Gallons</label>
+            <span class="input-group-addon">Gal</span>
+        </div>
+    </div>
+    <div class="form-group col-sm-2">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-usd"></span>
+            </span>
+            <input type="text" class="form-control" placeholder="Cost" id="cost" name="cost" value="<%= cost %>"/>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-primary savefuel">Save</button>
+        <button class="btn btn-primary deletefuel">Delete</button>
+    </div>
+</form>
