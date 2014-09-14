@@ -11,7 +11,6 @@ define([
         className: 'list-group',
 
         initialize: function(){
-            console.log('vehicleListView initialize');
             this.model.bind("change", this.render, this);
             this.model.bind("reset", this.render, this);
             var self = this;
@@ -22,7 +21,6 @@ define([
         },
 
         render: function(){
-            console.log('vehicleListView render');
             _.each(this.model.models, function(veh){
                 $(this.el).append(new vehicleView({model: veh}).render().el);
             }, this);
@@ -44,7 +42,6 @@ define([
         },
             
         render: function(){
-            console.log('vehicleView render');
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },

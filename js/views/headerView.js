@@ -11,7 +11,6 @@ define([
         className: "container-fluid",
         
         initialize: function(){
-            console.log('initialize header');
             this.render();},
 
         render: function(){

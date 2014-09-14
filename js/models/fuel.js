@@ -1,14 +1,15 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function($, _, Backbone){
+    'backbone',
+    'config'
+], function($, _, Backbone, db){
     var Fuel = Backbone.Model.extend({
     // Model for a fuel record
         //Tie the model id to the CouchDB id
         idAttribute: '_id',
 
-        urlRoot: '../couchdb/mileage',
+        urlRoot: db.root,
         defaults: {
             date      : "",
             gallons   : "",
@@ -24,12 +25,13 @@ define([
 
         // The URL option filters the list by a specific vehicle id
         initialize: function(models, options){
-            this.url = '../couchdb/mileage/_design/app/_view/fuel?key="'+options.id+'"';
+            this.url = db.app.fuel+'?key="'+options.id+'"';
             this._meta = {};
         },
 
         comparator: function(m){
-            return -Date.parse(m.get('date'));
+//            return -Date.parse(m.get('date'));
+            return -m.get('mileage'); // tried sorting on mileage to catch the case of more than one fillup in a day
         },
 
         // parse function fixes the CouchDB response so Backbone will read it.

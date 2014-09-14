@@ -1,22 +1,23 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function($, _, Backbone){
+    'backbone',
+    'config'
+], function($, _, Backbone, db){
     var Maintenance = Backbone.Model.extend({
         idAttribute : '_id',
 
-        urlRoot : '../couchdb/mileage',
+        urlRoot : db.root,
 
         defaults: {
-            "date"      : "",
-            "scheduled" : "",
-            "vendor"    : "",
-            "cost"      : "",
-            "mileage"   : "",
-            "notes"     : "",
-            "vehicleid" : "",
-            "type"      : "maintenance"
+            date      : "",
+            scheduled : "",
+            vendor    : "",
+            cost      : "",
+            mileage   : "",
+            notes     : "",
+            vehicleid : "",
+            type      : "maintenance"
         }
     });
 
@@ -26,7 +27,7 @@ define([
 
         // The URL option filters the list by a specific vehicle id
         initialize: function(models, options){
-            this.url = '../couchdb/mileage/_design/app/_view/maintenance?key="'+options.id+'"';
+            this.url = db.app.maint+'?key="'+options.id+'"';
             this._meta = {};
         },
             

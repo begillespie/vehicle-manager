@@ -16,12 +16,10 @@ define([
         },
     
         initialize: function(){
-            console.log('initialize router');
             $('#header').html(new HeaderView().el);
         },
 
         home: function(){
-            console.log('home route');
             var self = this;
             self.vehicleList = new Vehicle.Collection();
             self.vehicleList.fetch({
@@ -49,7 +47,6 @@ define([
         },
 
         newVehicle: function(){
-            console.log('newVehicle');
             if(this.vehicleDetailView) this.vehicleDetailView.close();
             this.vehicleDetailView = new vehicleDetailView({model:new Vehicle.Model()});
             $('#vehicle-detail').html(this.vehicleDetailView.render().el);

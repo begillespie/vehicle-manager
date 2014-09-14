@@ -1,13 +1,14 @@
 define([
     'jquery',
     'underscore',
-    'backbone'
-], function($, _, Backbone){
+    'backbone',
+    'config'
+], function($, _, Backbone, db){
     var Vehicle = Backbone.Model.extend({
     // Basic model for a vehicle
         // Tie the model id to the CouchDB id
         idAttribute: "_id",
-        urlRoot: '../couchdb/mileage',
+        urlRoot: db.root,
         
         defaults: {
             make   : "",
@@ -25,7 +26,7 @@ define([
     
     var VehicleCollection = Backbone.Collection.extend({
         model: Vehicle,
-        url: '../couchdb/mileage/_design/app/_view/vehicles',
+        url: db.app.vehicles,
 
         // parse function fixes the CouchDB response so Backbone will read it.
         parse: function (response) {

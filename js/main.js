@@ -14,6 +14,5 @@ requirejs.config({
 require([
     'app',
 ], function(App){
-    console.log('main.js');
     App.initialize();
 });
