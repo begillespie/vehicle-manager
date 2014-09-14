@@ -11,7 +11,7 @@ define([
 
         defaults: {
             date      : "",
-            scheduled : "",
+            scheduled : true,
             vendor    : "",
             cost      : "",
             mileage   : "",

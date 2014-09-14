@@ -19,6 +19,13 @@ define([
 
         render: function(){
             $(this.el).html(this.template(this.model.toJSON()));
+            // set the radio button
+            if(this.model.get('scheduled') == 'true'){
+                this.$('#scheduled').prop('checked','checked');
+            } else if (this.model.get('scheduled') == 'false') {
+                this.$('#unscheduled').prop('checked','checked');
+            }
+            console.log(this.el);
             return this;
         },
 
