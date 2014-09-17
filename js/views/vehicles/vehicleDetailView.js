@@ -105,7 +105,7 @@ define([
         close: function(){
             $(this.el).unbind();
             $(this.el).remove();
-            Backbone.history.navigate("");
+            Backbone.history.navigate('',{trigger:false});
         }
     });
 

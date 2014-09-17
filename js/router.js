@@ -50,17 +50,6 @@ define([
             if(this.vehicleDetailView) this.vehicleDetailView.close();
             this.vehicleDetailView = new vehicleDetailView({model:new Vehicle.Model()});
             $('#vehicle-detail').html(this.vehicleDetailView.render().el);
-        },
-
-        maintenance: function(vehicleid){
-            this.maintenanceList = new MaintenanceCollection([], {'id':vehicleid});
-            var self = this;
-            this.maintenanceList.fetch({
-                success: function(){
-                    this.maintenanceListView = new MaintenanceListView({model: self.maintenanceList})
-                    $('#maintenance').html(maintenanceListView.render().el);
-                }
-            })
         }
 
     });

@@ -25,7 +25,6 @@ define([
             } else if (this.model.get('scheduled') == 'false') {
                 this.$('#unscheduled').prop('checked','checked');
             }
-            console.log(this.el);
             return this;
         },
 
