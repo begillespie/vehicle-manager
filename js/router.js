@@ -3,10 +3,11 @@ define([
         'underscore',
         'backbone',
         'views/headerView',
+        'views/homeView',
         'models/vehicle',
         'views/vehicles/vehicleListView',
         'views/vehicles/vehicleDetailView'
-], function($, _, Backbone, HeaderView, Vehicle, vehicleListView, vehicleDetailView){
+], function($, _, Backbone, HeaderView, HomeView, Vehicle, vehicleListView, vehicleDetailView){
 
     var AppRouter = Backbone.Router.extend({
         routes: {
@@ -21,6 +22,7 @@ define([
 
         home: function(){
             var self = this;
+            $('#vehicle-detail').html(new HomeView().el);
             self.vehicleList = new Vehicle.Collection();
             self.vehicleList.fetch({
                 success: function(){
